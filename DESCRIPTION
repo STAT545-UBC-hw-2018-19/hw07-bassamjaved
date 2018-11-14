@@ -1,0 +1,16 @@
+Package: hw07package
+Type: Package
+Title: Box-Cox Transformation
+Version: 0.1.0
+Authors: Bassam Javed
+Maintainer: Bassam Javed <bassamjaved@gmail.com>
+Description: This package performs a Box-Cox data transformation for statistical analysis.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.0
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr

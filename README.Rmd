@@ -1,0 +1,55 @@
+---
+output: github_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+```{r}
+library(purrr)
+library(tidyverse)
+```
+
+
+# hw07package
+
+This package was created as a submission for Homework 07 requirement for STAT 547. It contains functions for performing a transformation of statistical data by the Box-Cox method.
+
+## Installation
+
+You can install the released version of hw07package from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("hw07package")
+```
+
+## Example
+
+The primary function visible to the user is `boxcox`. Based on whether the first argument passed to the function is positive or negative, `boxcox` will use an appropriate internal function to calculate the Box-Cox transformation according to a specified lambda parameter (and lambda2 for a negative argument).
+
+```{r example}
+#positive argument
+boxcox(10,2)
+
+#negative argument
+boxcox(-10, 2, 3)
+```
+
+
+```{r pressure, echo = FALSE}
+sample_vec <- c(15, 16.3, 13.4, 17.8, 17.7, 27.1, 25, 19.5)
+sample_boxcox <- map(sample_vec, boxcox, 2)
+life <- as.numeric(gapminder$lifeExp)
+sample_gap <- map(life, 3)
+head(sample_gap)
+
+library(gapminder)
+hist(gapminder$lifeExp)
+#hist(sample_gap)
+```
