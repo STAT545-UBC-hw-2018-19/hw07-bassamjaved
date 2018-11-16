@@ -32,7 +32,7 @@ This package is located at https://github.com/STAT545-UBC-students/hw07-bassamja
 
 To install package, you have two options:
 
-1) Download as .tgz file from the link above. In RStuio, Tools->Install Packages->Install From: Package Archive File.
+1) Download as .zip file from the link above. In RStudio, Tools->Install Packages->Install From: Package Archive File.
 2) Download directly from GitHub.com. Use the following command:
 ```
 install_github("bassamjaved/hw07package")
