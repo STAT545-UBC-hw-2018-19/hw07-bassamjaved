@@ -1,45 +1,63 @@
 
+``` r
+library(tidyverse)
+#> ── Attaching packages ──────────────────────────────────────────────────────────── tidyverse 1.2.1 ──
+#> ✔ ggplot2 3.0.0     ✔ purrr   0.2.5
+#> ✔ tibble  1.4.2     ✔ dplyr   0.7.6
+#> ✔ tidyr   0.8.1     ✔ stringr 1.3.1
+#> ✔ readr   1.1.1     ✔ forcats 0.3.0
+#> ── Conflicts ─────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+#> ✖ dplyr::filter() masks stats::filter()
+#> ✖ dplyr::lag()    masks stats::lag()
+```
+
 # hw07package
 
-The goal of hw07package is to …
+This package was created as a submission for Homework 07 requirement for
+STAT 547. It contains functions for performing a transformation of
+statistical data by the Box-Cox method.
+
+## Functions
+
+This package contains one function that can be implemented by the user,
+`boxcox`.
+
+There are also two internal functions used by the above function, namely
+`boxcox_positive` and `boxcox_negative`. If a vector argument is
+positive, `boxcox` passes to the former; if negative, then to the
+latter.
 
 ## Installation
 
-You can install the released version of hw07package from
-[CRAN](https://CRAN.R-project.org) with:
+This package is located at
+<https://github.com/STAT545-UBC-students/hw07-bassamjaved>
 
-``` r
-install.packages("hw07package")
-```
+To install package, you have two options:
+
+1)  Download as .tgz file from the link above. In RStuio,
+    Tools-\>Install Packages-\>Install From: Package Archive File.
+2)  Download directly from GitHub.com. Use the following command:
+
+<!-- end list -->
+
+    install_github("bassamjaved/hw07package")
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+The primary function visible to the user is `boxcox`. Based on whether
+the first argument passed to the function is positive or negative,
+`boxcox` will use an appropriate internal function to calculate the
+Box-Cox transformation according to a specified lambda parameter (and
+lambda2 for a negative argument).
 
 ``` r
-## basic example code
+#positive argument; lambda = 2 
+hw07package::boxcox(10,2)
+#> [1] 49.5
+
+#negative argument; lambda1 = 2, lambda2 = 3
+hw07package::boxcox(-10, 2, 3)
+#> [1] 24
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
-
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
-
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub\!
+For further elaboration with illustrative example, see package vignette.

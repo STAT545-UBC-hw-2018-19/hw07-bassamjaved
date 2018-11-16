@@ -1,10 +1,10 @@
 ---
-title: "Example Vignette for Box Cox Transformation"
+title: "Vignette for Box Cox Transformation"
 author: "Bassam Javed"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Example Vignette for Box Cox Transformation}
+  %\VignetteIndexEntry{Vignette for Box Cox Transformation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,46 +16,41 @@ knitr::opts_chunk$set(
 )
 ```
 
+The purpose of this vignette is to demonstrate the functions of this package, namely Box-Cox transformation.  
+
+One of the foundations of statistics is the assumption of data distributed normally. However, in many real-life scenarios, this is not always the case. In order to make use of the statistical toolkit, non-normal data is often transformed by some known equation. One such transformation is to use take the logarithm of all data. In this package, I will demonstrate the use of the **Box-Cox family of transformations**:
+
+*Positive data:*  
+if $\lambda$ is not 0 then  
+$x(\lambda) = (x^\lambda - 1)/\lambda$  
+if $\lambda$ is 0, then $x(\lambda) = log(\lambda)$  
+  
+*Negative data:*  
+if $\lambda_1$ is not 0, then $x(\lambda) = ((x+\lambda_2)^\lambda_1 - 1)/\lambda_1$  
+if $\lambda_1$ is 0, then $x(\lambda) = log(x+\lambda_2)$
+
+This package includes an .Rda file which contains an excerpt of data from the `gapminder` package. All values of life expectancy were extracted from `gapminder` into this package's 'gapminder_sample.Rda'.
+
 ```{r}
-library(gapminder)
-gap_small <- gapminder %>% 
-  filter(continent == "Asia") %>%
-  select(country, year, lifeExp) %>% 
-  mutate("lifeExp_boxcox" = map(lifeExp, boxcox, 2)) %>% 
-  mutate(lifeExp_boxcox = unlist(lifeExp_boxcox))
-
-gap_small %>% ggplot + geom_histogram(aes(lifeExp_boxcox))
-
-#read_csv(working)
-
+head(hw07package::gapminder_sample)
 ```
 
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
+Let's compare a histogram of raw data to a histogram of data that has been transformed by this package's `boxcox` function.
 
 ```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
+gapminder_boxcox <- hw07package::boxcox(hw07package::gapminder_sample$lifeExp, 2)
+
+hist(hw07package::gapminder_sample$lifeExp,
+     breaks = 25, 
+     main = "Raw data", 
+     xlab = "Life expectancy")
+
+hist(gapminder_boxcox, 
+     breaks = 25, 
+     main = "Box-Cox transformed",
+     xlab = "Life expectancy (Box-Cox)")
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
-
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
-
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
-```
-
-Also a quote using `>`:
-
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+### References:  
+https://www.statisticshowto.datasciencecentral.com/box-cox-transformation/  
+https://cran.r-project.org/web/packages/gapminder/gapminder.pdf

@@ -4,7 +4,7 @@
 \alias{boxcox}
 \title{Apply a Box-Cox transformation}
 \usage{
-boxcox(x, lambda1, lambda2)
+boxcox(x, lambda1, lambda2 = 0)
 }
 \arguments{
 \item{x}{Vector of numerics}

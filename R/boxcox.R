@@ -22,10 +22,5 @@ boxcox <- function(x, lambda1, lambda2 = 0) {
     stop("lambda2 out of bounds (-5 < lambda2 < 5)")
   }
 
-  if(x < 0) {
-    boxcox_negative(x, lambda1, lambda2)
-  }
-  else {
-    boxcox_positive(x, lambda1)
-  }
+  ifelse(x < 0, boxcox_negative(x, lambda1, lambda2), boxcox_positive(x, lambda1))
 }
